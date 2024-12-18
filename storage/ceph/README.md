@@ -26,10 +26,10 @@
 - **[5.2 数据分布与负载均衡](./5.CephCRUSH算法/2.数据分布与负载均衡.md)**：深入讲解如何利用 CRUSH 算法将数据均衡地分配到集群中的 OSD 节点上。
 - **[5.3 CRUSH 规则和调整](./5.CephCRUSH算法/3.CRUSH%20规则和调整.md)**：讲解如何通过调整 CRUSH 规则来优化集群性能和存储策略。
 
-## [6. Ceph MDS (Metadata Server)](./6.CephMDS(Metadata Server))
-- **[6.1 MDS 的作用与功能](./6.CephMDS(Metadata%20Server)/1.MDS的作用与功能.md)**：介绍 MDS 在 Ceph 文件系统中的作用，尤其是在 CephFS 中，它如何管理文件系统的元数据。
-- **[6.2 MDS 的工作流程](./6.CephMDS(Metadata%20Server)/2.MDS的工作流程.md)**：讲解 MDS 如何与 OSD 配合，处理客户端的文件操作请求，以及如何进行元数据的缓存和同步。
-- **[6.3 MDS 集群与负载均衡](./6.CephMDS(Metadata%20Server)/3.MDS集群与负载均衡.md)**：解释 MDS 如何通过多副本和负载均衡来保证高效的元数据管理。
+## [6. Ceph MDS (Metadata Server)](./6.CephMDS(MetadataServer))
+- **[6.1 MDS 的作用与功能](./6.CephMDS(MetadataServer)/1.MDS的作用与功能.md)**：介绍 MDS 在 Ceph 文件系统中的作用，尤其是在 CephFS 中，它如何管理文件系统的元数据。
+- **[6.2 MDS 的工作流程](./6.CephMDS(MetadataServer)/2.MDS的工作流程.md)**：讲解 MDS 如何与 OSD 配合，处理客户端的文件操作请求，以及如何进行元数据的缓存和同步。
+- **[6.3 MDS 集群与负载均衡](./6.CephMDS(MetadataServer)/3.MDS集群与负载均衡.md)**：解释 MDS 如何通过多副本和负载均衡来保证高效的元数据管理。
 
 ## [7. Ceph 客户端与接口](./7.Ceph客户端与接口)
 - **[7.1 Ceph 客户端架构](./7.Ceph客户端与接口/1.Ceph%20客户端架构.md)**：介绍 Ceph 客户端的不同接口，如 RADOS、RBD、CephFS 和 RGW。

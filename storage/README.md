@@ -40,10 +40,10 @@
     - **[5.2 数据分布与负载均衡](./ceph/5.CephCRUSH算法/2.数据分布与负载均衡.md)**
     - **[5.3 CRUSH 规则和调整](./ceph/5.CephCRUSH算法/3.CRUSH%20规则和调整.md)**
 
-  - [6. Ceph MDS (Metadata Server)](./ceph/6.CephMDS(Metadata Server))
-    - **[6.1 MDS 的作用与功能](./ceph/6.CephMDS(Metadata%20Server)/1.MDS的作用与功能.md)**
-    - **[6.2 MDS 的工作流程](./ceph/6.CephMDS(Metadata%20Server)/2.MDS的工作流程.md)**
-    - **[6.3 MDS 集群与负载均衡](./ceph/6.CephMDS(Metadata%20Server)/3.MDS集群与负载均衡.md)**
+  - [6. Ceph MDS (Metadata Server)](./ceph/6.CephMDS(MetadataServer))
+    - **[6.1 MDS 的作用与功能](./ceph/6.CephMDS(MetadataServer)/1.MDS的作用与功能.md)**
+    - **[6.2 MDS 的工作流程](./ceph/6.CephMDS(MetadataServer)/2.MDS的工作流程.md)**
+    - **[6.3 MDS 集群与负载均衡](./ceph/6.CephMDS(MetadataServer)/3.MDS集群与负载均衡.md)**
 
   - [7. Ceph 客户端与接口](./ceph/7.Ceph客户端与接口)
     - **[7.1 Ceph 客户端架构](./ceph/7.Ceph客户端与接口/1.Ceph%20客户端架构.md)**
