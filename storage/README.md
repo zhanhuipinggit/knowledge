@@ -17,8 +17,8 @@
 - [ceph](./ceph)
   - [**1. Ceph 简介与基本概念**](./ceph/1.ceph简介与基本概念)
     - **[1.1 什么是 Ceph](./ceph/1.ceph简介与基本概念/1.什么是ceph.md)**
-    - **[1.2 Ceph 的应用场景](./ceph/1.ceph简介与基本概念/2.Ceph%20的应用场景.md)**
-    - **[1.3 Ceph 的特点](./ceph/1.ceph简介与基本概念/3.Ceph%20的特点.md)**
+    - **[1.2 Ceph 的应用场景](./ceph/1.ceph简介与基本概念/2.Ceph的应用场景.md)**
+    - **[1.3 Ceph 的特点](./ceph/1.ceph简介与基本概念/3.Ceph的特点.md)**
 
   - [2. Ceph 架构概览](./ceph/2.Ceph架构概览)
     - **[2.1 Ceph 集群的基本组成](./ceph/2.Ceph架构概览/1.ceph集群的基本组成.md)**
@@ -26,14 +26,14 @@
     - **[2.3 数据一致性与复制](./ceph/2.Ceph架构概览/3.数据一致性与复制.md)**
 
   - [3. Ceph Monitor (MON)](./ceph/3.CephMonitor(MON))
-    - **[3.1 MON 的角色和功能](./ceph/3.CephMonitor(MON)/1.MON%20的角色和功能.md)**
-    - **[3.2 MON 的协议](./ceph/3.CephMonitor(MON)/2.MON%20的协议.md)**
-    - **[3.3 Quorum 与故障恢复](./ceph/3.CephMonitor(MON)/3.Quorum%20与故障恢复.md)**
+    - **[3.1 MON 的角色和功能](./ceph/3.CephMonitor(MON)/1.MON的角色和功能.md)**
+    - **[3.2 MON 的协议](./ceph/3.CephMonitor(MON)/2.MON的协议.md)**
+    - **[3.3 Quorum 与故障恢复](./ceph/3.CephMonitor(MON)/3.Quorum与故障恢复.md)**
 
-  - [4. Ceph OSD (Object Storage Daemon)](./4.CephOSD(Object Storage Daemon))
-    - **[4.1 OSD 的工作原理](./ceph/4.CephOSD(Object%20Storage%20Daemon)/1.OSD%20的工作原理.md)**
-    - **[4.2 数据的分布与副本](./ceph/4.CephOSD(Object%20Storage%20Daemon)/2.数据的分布与副本.md)**
-    - **[4.3 数据复制与恢复](./ceph/4.CephOSD(Object%20Storage%20Daemon)/3.数据复制与恢复.md)**
+  - [4. Ceph OSD (Object Storage Daemon)](./ceph/4.CephOSD(ObjectStorageDaemon))
+    - **[4.1 OSD 的工作原理](./ceph/4.CephOSD(ObjectStorageDaemon)/1.OSD的工作原理.md)**
+    - **[4.2 数据的分布与副本](./ceph/4.CephOSD(ObjectStorageDaemon)/2.数据的分布与副本.md)**
+    - **[4.3 数据复制与恢复](./ceph/4.CephOSD(ObjectStorageDaemon)/3.数据复制与恢复.md)**
 
   - [5. Ceph CRUSH 算法](./ceph/5.CephCRUSH算法)
     - **[5.1 CRUSH 算法概述](./ceph/5.CephCRUSH算法/1.CRUSH%20算法概述.md)**
@@ -41,8 +41,8 @@
     - **[5.3 CRUSH 规则和调整](./ceph/5.CephCRUSH算法/3.CRUSH%20规则和调整.md)**
 
   - [6. Ceph MDS (Metadata Server)](./ceph/6.CephMDS(Metadata Server))
-    - **[6.1 MDS 的作用与功能](./ceph/6.CephMDS(Metadata%20Server)/1.MDS%20的作用与功能.md)**
-    - **[6.2 MDS 的工作流程](./ceph/6.CephMDS(Metadata%20Server)/2.MDS%20的工作流程.md)**
+    - **[6.1 MDS 的作用与功能](./ceph/6.CephMDS(Metadata%20Server)/1.MDS的作用与功能.md)**
+    - **[6.2 MDS 的工作流程](./ceph/6.CephMDS(Metadata%20Server)/2.MDS的工作流程.md)**
     - **[6.3 MDS 集群与负载均衡](./ceph/6.CephMDS(Metadata%20Server)/3.MDS集群与负载均衡.md)**
 
   - [7. Ceph 客户端与接口](./ceph/7.Ceph客户端与接口)

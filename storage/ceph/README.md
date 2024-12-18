@@ -16,10 +16,10 @@
 - **[3.2 MON 的协议](./3.CephMonitor(MON)/2.MON的协议.md)**：讲解 MON 如何进行集群协调，包括集群的元数据和状态管理。
 - **[3.3 Quorum 与故障恢复](./3.CephMonitor(MON)/3.Quorum与故障恢复.md)**：阐述 MON 的选举机制及其如何确保集群的高可用性。
 
-## [4. Ceph OSD (Object Storage Daemon)](./4.CephOSD(Object Storage Daemon))
-- **[4.1 OSD 的工作原理](./4.CephOSD(Object%20Storage%20Daemon)/1.OSD的工作原理.md)**：介绍 OSD 组件如何处理数据存储和读取，如何与 MON 协作来管理数据的持久化。
-- **[4.2 数据的分布与副本](./4.CephOSD(Object%20Storage%20Daemon)/2.数据的分布与副本.md)**：详细讲解数据的分布机制，如何利用 CRUSH 算法计算数据存储的位置，并通过副本来提高可靠性。
-- **[4.3 数据复制与恢复](./4.CephOSD(Object%20Storage%20Daemon)/3.数据复制与恢复.md)**：深入剖析 OSD 的副本管理与数据恢复机制。
+## [4. Ceph OSD (Object Storage Daemon)](./4.CephOSD(ObjectStorageDaemon))
+- **[4.1 OSD 的工作原理](./4.CephOSD(ObjectStorageDaemon)/1.OSD的工作原理.md)**：介绍 OSD 组件如何处理数据存储和读取，如何与 MON 协作来管理数据的持久化。
+- **[4.2 数据的分布与副本](./4.CephOSD(ObjectStorageDaemon)/2.数据的分布与副本.md)**：详细讲解数据的分布机制，如何利用 CRUSH 算法计算数据存储的位置，并通过副本来提高可靠性。
+- **[4.3 数据复制与恢复](./4.CephOSD(ObjectStorageDaemon)/3.数据复制与恢复.md)**：深入剖析 OSD 的副本管理与数据恢复机制。
 
 ## [5. Ceph CRUSH 算法](./5.CephCRUSH算法)
 - **[5.1 CRUSH 算法概述](./5.CephCRUSH算法/1.CRUSH%20算法概述.md)**：介绍 CRUSH 算法的基本概念和原理，如何根据集群的拓扑结构进行数据的分布。
