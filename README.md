@@ -30,3 +30,9 @@ English | [中文](./README-CN.md)
 - **Networking Tools and Utilities**: Proficiency with tools like Wireshark, curl, and netcat for network debugging and analysis.
 - **Load Balancing and Proxy Servers**: Knowledge of how to distribute network traffic efficiently and the role of proxy servers in network architecture.
 
+[**storage**](https://github.com/zhanhuipinggit/knowledge/storage)
+- [ceph](./storage/ceph)
+- [clickhouse](./storage/clickhouse)
+- [mysql](./storage/mysql)
+- [redis](./storage/redis)
+- [tidb](./storage/tidb)

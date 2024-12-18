@@ -29,3 +29,11 @@
 - **RESTful API设计**：了解设计和使用RESTful API的知识，包括HTTP方法、状态码和API版本控制。
 - **网络工具和实用程序**：熟练使用Wireshark、curl和netcat等工具进行网络调试和分析。
 - **负载均衡和代理服务器**：了解如何高效分配网络流量以及代理服务器在网络架构中的作用。
+
+
+[**storage**](https://github.com/zhanhuipinggit/knowledge/storage)
+- [ceph](./storage/ceph)
+- [clickhouse](./storage/clickhouse)
+- [mysql](./storage/mysql)
+- [redis](./storage/redis)
+- [tidb](./storage/tidb)
