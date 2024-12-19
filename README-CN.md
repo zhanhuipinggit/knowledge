@@ -87,6 +87,6 @@
 - [mysql](./storage/mysql)
   - **[1. MySQL 简介与架构概览](./storage/mysql/1.mysql简介与架构概览.md)**
   - **[2. InnoDB 存储引擎架构与事务管理](./storage/mysql/2.InnoDB存储引擎架构与事务管理.md)**
-  - **[3. InnoDB 的存储引擎实现与优化](./storage/mysql/3.InnoDB 的存储引擎实现与优化.md)**
+  - **[3. InnoDB 的存储引擎实现与优化](./storage/mysql/3.InnoDB的存储引擎实现与优化.md)**
 - [redis](./storage/redis)
 - [tidb](./storage/tidb)

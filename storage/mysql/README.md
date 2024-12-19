@@ -38,7 +38,7 @@
 
 ---
 
-## [3. InnoDB 的存储引擎实现与优化](./3.InnoDB 的存储引擎实现与优化.md)
+## [3. InnoDB 的存储引擎实现与优化](./3.InnoDB的存储引擎实现与优化.md)
 ### 3.1 **InnoDB 内存管理与 Buffer Pool**
 - **Buffer Pool**：InnoDB 使用 Buffer Pool 存储磁盘页，以提高查询性能，分析它如何缓存数据页和索引页。
 - **页清理与刷写**：介绍 InnoDB 如何管理页的刷写，保证磁盘与内存中的数据一致性。
