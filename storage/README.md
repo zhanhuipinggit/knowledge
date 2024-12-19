@@ -72,4 +72,6 @@
   - **[2. InnoDB 存储引擎架构与事务管理](./mysql/2.InnoDB存储引擎架构与事务管理.md)**
   - **[3. InnoDB 的存储引擎实现与优化](./mysql/3.InnoDB的存储引擎实现与优化.md)**
 - [redis](./redis)
+  - **[1. Redis 概述与架构设计](./redis/1.redis概述与架构设计.md)**
+  - **[2. Redis 核心实现原理与源码分析](./redis/2.Redis核心实现原理与源码分析.md)**
 - [tidb](./tidb)
