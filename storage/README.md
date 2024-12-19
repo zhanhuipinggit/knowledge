@@ -68,5 +68,8 @@
 
 - [clickhouse](./clickhouse)
 - [mysql](./mysql)
+  - **[1. MySQL 简介与架构概览](./mysql/1.mysql简介与架构概览.md)**
+  - **[2. InnoDB 存储引擎架构与事务管理](./mysql/2.InnoDB存储引擎架构与事务管理.md)**
+  - **[3. InnoDB 的存储引擎实现与优化](./mysql/3.InnoDB 的存储引擎实现与优化.md)**
 - [redis](./redis)
 - [tidb](./tidb)

@@ -31,7 +31,7 @@
 - **负载均衡和代理服务器**：了解如何高效分配网络流量以及代理服务器在网络架构中的作用。
 
 
-[**storage**](https://github.com/zhanhuipinggit/knowledge/storage)
+### [**storage**](https://github.com/zhanhuipinggit/knowledge/storage)
 - [ceph](./storage/ceph)
     - [**1. Ceph 简介与基本概念**](./storage/ceph/1.ceph简介与基本概念)
         - **[1.1 什么是 Ceph](./storage/ceph/1.ceph简介与基本概念/1.什么是ceph.md)**
@@ -85,5 +85,8 @@
         - **[10.3 集群健康检查与问题解决](./storage/ceph/10.Ceph的集群部署与维护/3.集群健康检查与问题解决.md)**
 - [clickhouse](./storage/clickhouse)
 - [mysql](./storage/mysql)
+  - **[1. MySQL 简介与架构概览](./storage/mysql/1.mysql简介与架构概览.md)**
+  - **[2. InnoDB 存储引擎架构与事务管理](./storage/mysql/2.InnoDB存储引擎架构与事务管理.md)**
+  - **[3. InnoDB 的存储引擎实现与优化](./storage/mysql/3.InnoDB 的存储引擎实现与优化.md)**
 - [redis](./storage/redis)
 - [tidb](./storage/tidb)
