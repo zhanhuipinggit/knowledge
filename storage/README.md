@@ -71,7 +71,7 @@
   - **[2. ClickHouse 查询执行流程与源码分析](./clickhouse/2.ClickHouse查询执行流程与源码分析.md)**
   - **[3. ClickHouse 数据存储与 MergeTree 引擎](./clickhouse/3.ClickHouse数据存储与MergeTree引擎.md)**
   - **[4. ClickHouse 分布式架构与高可用性](./clickhouse/4.ClickHouse分布式架构与高可用性.md)**
-  - **[5. ClickHouse 性能优化与调优](./clickhouse/5.ClickHouse 性能优化与调优.md)**
+  - **[5. ClickHouse 性能优化与调优](./clickhouse/5.ClickHouse性能优化与调优.md)**
 
 - [mysql](./mysql)
   - **[1. MySQL 简介与架构概览](./mysql/1.mysql简介与架构概览.md)**
@@ -81,6 +81,6 @@
   - **[1. Redis 概述与架构设计](./redis/1.redis概述与架构设计.md)**
   - **[2. Redis 核心实现原理与源码分析](./redis/2.Redis核心实现原理与源码分析.md)**
 - [tidb](./tidb)
-  - **[1. TiDB 概述与架构设计](./tidb/1.TiDB 概述与架构设计.md)**
-  - **[2. TiDB 内部实现原理与源码分析](./tidb/2.TiDB 内部实现原理与源码分析.md)**
+  - **[1. TiDB 概述与架构设计](./tidb/1.TiDB概述与架构设计.md)**
+  - **[2. TiDB 内部实现原理与源码分析](./tidb/2.TiDB内部实现原理与源码分析.md)**
 
