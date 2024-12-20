@@ -1,4 +1,4 @@
-# ClickHouse 课程大纲：源码实现与原理
+# ClickHouse：源码实现与原理
 
 ## [1. ClickHouse 简介与架构概览](./1.ClickHouse简介与架构概览.md)
 ### 1.1 **ClickHouse 简介**

@@ -1,4 +1,4 @@
-# MySQL 课程大纲：核心功能与 InnoDB 实现原理
+# MySQL：核心功能与 InnoDB 实现原理
 
 ## [1. MySQL 简介与架构概览](./1.mysql简介与架构概览.md)
 ### 1.1 **MySQL 简介**
