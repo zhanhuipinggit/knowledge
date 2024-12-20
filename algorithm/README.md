@@ -10,7 +10,7 @@
 - **算法设计**：能够设计和实现解决特定问题的算法，考虑效率、可扩展性和可维护性等因素。
 
 ###  Table of Contents
-- [ceph](../algorithm)
+- [algorithm](../algorithm)
     - [**排序**](./sorting.md)
     - **[搜索](./search.md)**
     - **[分治](./divide_and_conquer.md)**
