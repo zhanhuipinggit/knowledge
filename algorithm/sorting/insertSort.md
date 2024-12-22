@@ -153,3 +153,61 @@ void insertSort(int nums[], int n) {
 
 
 ```
+
+- **rust版本**
+```rust
+fn insert_sort(nums: &mut Vec<i32>) {
+    for i in 1..nums.len() {
+        len key = nums[i];
+        let mut j = i as i32 -i;
+        
+        // 将大于 key 的元素向右移动一位
+        while j >= 0 && nums[j as usize] > key {
+            nums[(j + 1) as usize] = nums[j as usize];
+            j -= 1;
+        }
+        // 插入当前元素到正确的位置
+        nums[(j + 1) as usize] = key;
+    }
+
+}
+
+```
+
+- **python版本**
+```python
+def insert_sort(nums):
+    for i in range(1, len(nums)):
+        key = nums[i]  # 当前要插入的元素
+        j = i - 1      # 用于比较的索引
+
+        # 将大于 key 的元素向右移动一位
+        while j >= 0 and nums[j] > key:
+            nums[j + 1] = nums[j]
+            j -= 1
+        
+        # 插入当前元素到正确的位置
+        nums[j + 1] = key
+
+```
+
+- **Java版本**
+
+```java
+public static void insertSort(int[] nums) {
+        for (int i = 1; i < nums.length; i++) {
+            int key = nums[i];  // 当前要插入的元素
+            int j = i - 1;      // 用于比较的索引
+
+            // 将大于 key 的元素向右移动一位
+            while (j >= 0 && nums[j] > key) {
+                nums[j + 1] = nums[j];
+                j--;
+            }
+            // 插入当前元素到正确的位置
+            nums[j + 1] = key;
+        }
+    }
+```
+
+
