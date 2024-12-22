@@ -11,7 +11,7 @@
 
 ###  Table of Contents
 - [algorithm](../algorithm)
-    - [**排序**](./sorting.md)
+    - [**排序**](sorting/sorting.md)
     - **[搜索](./search.md)**
     - **[分治](./divide_and_conquer.md)**
     - **[回溯](./backtracking.md)**
