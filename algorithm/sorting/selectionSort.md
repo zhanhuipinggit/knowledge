@@ -127,6 +127,9 @@ func selectSort(nums []int) {
 
 **c++**
 ```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
 void selectSort(vector<int>& nums) {
     for (int i = 0; i < nums.size() - 1; i++) {
         int k = i;  // 假设当前位置的元素为最小值
@@ -142,5 +145,107 @@ void selectSort(vector<int>& nums) {
     }
 }
 
+
+```
+
+**java**
+```java
+public static void selectSort(int[] nums) {
+    // 外层循环遍历每个元素
+    for (int i = 0; i < nums.length - 1; i++) {
+        int k = i;  // 假设当前位置的元素为最小值
+        // 内层循环遍历未排序部分
+        for (int j = i + 1; j < nums.length; j++) {
+            if (nums[j] < nums[k]) {
+                k = j;  // 更新最小值的索引
+            }
+        }
+        // 交换当前位置元素与最小值
+        int temp = nums[k];
+        nums[k] = nums[i];
+        nums[i] = temp;
+    }
+}
+
+```
+
+**python**
+```python
+ 
+def select_sort(nums):
+    # 外层循环遍历每个元素
+    for i in range(len(nums) - 1):  # 不需要写成 range(0, len(nums) - 1)
+        k = i  # 假设当前位置的元素是最小值
+        # 内层循环查找最小值的索引
+        for j in range(i + 1, len(nums)):
+            if nums[j] < nums[k]:  # 找到更小的元素
+                k = j
+        # 交换最小值和当前位置元素
+        nums[k], nums[i] = nums[i], nums[k]  # 直接交换，简化代码
+
+ 
+```
+
+
+**rust**
+```rust
+fn select_sort(nums: &mut [i32]) {
+    let n = nums.len();
+    for i in 0..n - 1 {
+        let mut k = i;  // 假设当前位置是最小值
+        for j in i + 1..n {
+            if nums[j] < nums[k] {
+                k = j;  // 更新最小值的索引
+            }
+        }
+        // 交换最小值和当前位置的元素
+        nums.swap(i, k);
+    }
+}
+
+ 
+```
+
+**c**
+```c
+#include <stdio.h>
+
+void select_sort(int nums[], int n) {
+    // 外层循环：遍历每个元素
+    for (int i = 0; i < n - 1; i++) {
+        int k = i;
+        // 内层循环：在未排序部分查找最小元素
+        for (int j = i + 1; j < n; j++) {
+            if (nums[j] < nums[k]) {
+                k = j;
+            }
+        }
+        // 交换最小值和当前位置的元素
+        int temp = nums[k];  // 声明临时变量
+        nums[k] = nums[i];
+        nums[i] = temp;
+    }
+}
+ 
+```
+
+**php**
+```php
+function selectSort(&$nums) {
+    $n = count($nums);
+    for ($i = 0; $i < $n - 1; $i++) {
+        $k = $i;  // 假设当前位置的元素是最小值
+        for ($j = $i + 1; $j < $n; $j++) {
+            // 查找未排序部分中的最小值
+            if ($nums[$j] < $nums[$k]) {
+                $k = $j;  // 更新最小值的索引
+            }
+        }
+        // 交换最小值和当前位置的元素
+        $temp = $nums[$k];
+        $nums[$k] = $nums[$i];
+        $nums[$i] = $temp;
+    }
+}
 
 ```
