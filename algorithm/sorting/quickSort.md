@@ -223,3 +223,64 @@ void quickSort(int nums[], int left, int right) {
 
 
 ```
+**python**
+```python
+def quick_sort(nums, left, right):
+    if left >= right:
+        return
+
+    # 选择第一个元素作为 pivot
+    pivot = partition(nums, left, right)
+
+    # 递归排序左右部分
+    quick_sort(nums, left, pivot - 1)
+    quick_sort(nums, pivot + 1, right)
+
+
+def partition(nums, left, right):
+    pivot = nums[left]  # 选择第一个元素作为 pivot
+    i = left + 1
+    j = right
+    while i < j:
+        while i < j and nums[j] >= pivot:
+            j -= 1
+        while i < j and nums[i] <= pivot:
+            i += 1
+        nums[i], nums[j] = nums[j], nums[i]
+
+    nums[i], nums[left] = nums[left], nums[i]
+
+    return i
+
+```
+
+**rust**
+```rust
+fn partition(nums: &mut [i32], left: usize, right usize)-> usize {
+   let pivot = nums[left];
+   let mut i = left;
+   let mut j = right;
+   while i < j {
+      while i < j && nums[j] >= pivot {
+         j-=1;
+      }
+      while i < j && nums[i] <= pivot {
+         i+=1;
+      }
+      nums.swap(i, j);
+   }
+   nums.swap(i, left);
+   i
+}
+
+fn quick_sort(nums: &mut [i32], left: i32, right: i32) {
+   if left >= right {
+      return;
+   }
+   let pivot = Self::partition(nums, left as usize, right as usize) as i32;
+   Self::quick_sort(nums, left, pivot-1);
+   Self::quick_sort(nums, pivot+1, right);
+}
+
+
+```
