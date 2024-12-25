@@ -42,7 +42,6 @@ Swoole 支持各种网络协议，包括：
 
 ### 2.5 Swoole 流程图
 ```mermaid
-```mermaid
 graph TD
     subgraph Master进程
         A[Main Reactor]
