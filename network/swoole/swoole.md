@@ -40,6 +40,69 @@ Swoole 支持各种网络协议，包括：
 - **HTTP**：适用于 Web 服务的构建。
 - **gRPC**：用于高性能的微服务架构。
 
-### 2.5 Swoole 网络模型流程图
+### 2.5 Swoole 流程图
+```mermaid
+```mermaid
+graph TD
+    subgraph Master进程
+        A[Main Reactor]
+        subgraph Reactor线程
+            R1[Reactor 线程1]
+            R2[Reactor 线程2]
+            R3[Reactor 线程3]
+            R4[Reactor 线程4]
+        end
+    end
+    subgraph Manager进程
+        M[Manager 进程]
+    end
+    subgraph Worker进程
+        W1[Work 进程1]
+        W2[Work 进程2]
+        W3[Work 进程3]
+        W4[Work 进程4]
+    end
+    subgraph Task进程
+        T1[Task 进程1]
+        T2[Task 进程2]
+        T3[Task 进程3]
+    end
+    
+    A -->|事件分发| R1
+    A -->|事件分发| R2
+    A -->|事件分发| R3
+    A -->|事件分发| R4
+    R1 --> M
+    R2 --> M
+    R3 --> M
+    R4 --> M
+    M -->|任务调度| W1
+    M -->|任务调度| W2
+    M -->|任务调度| W3
+    M -->|任务调度| W4
+    W1 -->|任务执行| T1
+    W2 -->|任务执行| T2
+    W3 -->|任务执行| T3
+    W4 -->|任务执行| T1
+    T1 -->|响应结果| W1
+    T2 -->|响应结果| W2
+    T3 -->|响应结果| W3
+    W1 -->|响应结果| A
+    W2 -->|响应结果| A
+    W3 -->|响应结果| A
+    W4 -->|响应结果| A
+
+```
+
+**Mermaid 代码说明：**
+1. **Master进程**：
+    - 包含 `Main Reactor` 和多个 `Reactor 线程`。
+2. **Manager进程**：
+    - 负责管理和调度 Worker 进程。
+3. **Worker进程**：
+    - 负责处理具体的任务。
+4. **Task进程**：
+    - 专门处理需要异步执行的任务（例如耗时操作），并返回结果。
+
 
 
