@@ -3,6 +3,13 @@
 ## 什么是协程？
 协程是一种轻量级线程，具有较低的资源消耗和更高的性能。与传统线程相比，协程由用户态调度，可以实现非阻塞异步 IO，大幅提升并发能力。
 
+## 源码文件组织结构
+- **swoole_coroutine.h**：定义协程类。
+- **swoole_coroutine.cc**：实现协程创建、调度和上下文切换。
+- **swoole_hook.h/.cc**：实现对系统调用的 Hook。
+- **io_manager.h/.cc**：实现 IO 调度和事件循环。
+- **tests/**：包含协程功能的单元测试。
+
 ## Swoole 协程的核心原理
 Swoole 的协程基于以下技术实现：
 1. **用户态栈切换**：通过保存和恢复函数调用栈，实现协程上下文切换。
@@ -193,13 +200,6 @@ void IOManager::notify(int fd) {
     Coroutine::resume();
 }
 ```
-
-## 源码文件组织结构
-- **swoole_coroutine.h**：定义协程类。
-- **swoole_coroutine.cc**：实现协程创建、调度和上下文切换。
-- **swoole_hook.h/.cc**：实现对系统调用的 Hook。
-- **io_manager.h/.cc**：实现 IO 调度和事件循环。
-- **tests/**：包含协程功能的单元测试。
 
 ## 示例代码
 以下是一个基于 Swoole 协程的简单示例：
