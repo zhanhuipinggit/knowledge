@@ -31,6 +31,51 @@ Swoole 是一个面向生产环境的高性能网络通信框架，使用 C 语�
     - 灵活的中间件机制。
 - **适用场景**：微服务、企业级应用开发、高并发 API。
 
+```mermaid
+
+graph TD
+    A[框架组件库] --> B[协程客户端]
+    A --> C[基础功能]
+    A --> D[高级功能]
+    
+    B --> B1[MySQL 客户端]
+    B --> B2[Redis 客户端]
+    B --> B3[Eloquent ORM]
+    B --> B4[WebSocket 服务端/客户端]
+    B --> B5[JSON RPC 服务端/客户端]
+    B --> B6[gRPC 服务端/客户端]
+    B --> B7[Zipkin/Jaeger 客户端]
+    B --> B8[Guzzle HTTP 客户端]
+    B --> B9[Elasticsearch 客户端]
+    B --> B10[Consul 客户端]
+    B --> B11[ETCD 客户端]
+    B --> B12[AMQP 组件]
+    B --> B13[Apollo 配置中心]
+    B --> B14[阿里云 ACM 配置管理]
+    B --> B15[限流器]
+    B --> B16[通用连接池]
+    B --> B17[熔断器]
+    B --> B18[Swagger 文档生成]
+    B --> B19[视图引擎]
+    B --> B20[Snowflake ID 生成器]
+
+    C --> C1[PSR-11 依赖注入容器]
+    C --> C2[注解]
+    C --> C3[AOP 编程]
+    C --> C4[PSR-15 中间件]
+    C --> C5[自定义进程]
+    C --> C6[PSR-14 事件管理器]
+    C --> C7[消息队列]
+    C --> C8[自动模型缓存]
+    C --> C9[PSR-16 缓存]
+
+    D --> D1[Crontab 定时任务]
+    D --> D2[国际化支持]
+    D --> D3[Validation 表单验证器]
+
+
+```
+
 ### 2. [Swoft](https://www.swoft.org/)
 - **简介**：Swoft 是一个 PHP 微服务协程框架，简化了使用 Swoole 的复杂性。
 - **特点**：
