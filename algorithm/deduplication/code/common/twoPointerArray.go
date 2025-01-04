@@ -1,5 +1,9 @@
 package main
 
+import (
+	"sort"
+)
+
 /**
 给你一个 非严格递增排列 的数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。元素的 相对顺序 应该保持 一致 。然后返回 nums 中唯一元素的个数。
 
@@ -111,4 +115,114 @@ func twoSum(nums []int, target int) []int {
 		}
 	}
 	return []int{-1, -1}
+}
+
+// reverseString 反转数组
+func reverseString(s []rune) {
+	left, right := 0, len(s)-1
+	for left < right {
+		temp := s[left]
+		s[left] = s[right]
+		s[right] = temp
+		left++
+		right--
+	}
+}
+
+/**
+回文串判断
+回文串就是正着读和反着读都一样的字符串。
+比如说字符串 aba 和 abba 都是回文串，因为它们对称，反过来还是和本身一样；反之，字符串 abac 就不是回文串。
+*/
+
+func isPalindrome(s string) bool {
+	left, right := 0, len(s)-1
+	for left < right {
+		if s[left] != s[right] {
+			return false
+		}
+		left++
+		right--
+	}
+	return true
+}
+
+/**
+给你一个字符串 s，找到 s 中最长的 回文 子串。
+
+示例 1：
+
+输入：s = "babad"
+输出："bab"
+解释："aba" 同样是符合题意的答案。
+示例 2：
+
+输入：s = "cbbd"
+输出："bb"
+提示：
+
+1 <= s.length <= 1000
+s 仅由数字和英文字母组成
+*/
+
+func palindrome(s string, l, r int) string {
+	if l > 0 && r < len(s) && s[l] == s[r] {
+		l--
+		r++
+	}
+	return s[l+1 : r]
+}
+
+func longestPalindrome(s string) string {
+	var longestString string
+	for i := 0; i < len(s)-1; i++ {
+		s1 := palindrome(s, i, i)
+		s2 := palindrome(s, i, i+1)
+		if len(longestString) < len(s1) {
+			longestString = s1
+		}
+		if len(longestString) < len(s2) {
+			longestString = s2
+		}
+	}
+	return longestString
+}
+
+// 最少会议室，每个人有开始时间和结束时间，求会议室最少数
+type meetingTime struct {
+	time  int
+	start bool
+}
+
+func minMeetingRooms(nums [][]int) int {
+	var events []*meetingTime
+	for _, num := range nums {
+		events = append(events, &meetingTime{time: num[0], start: true})
+		events = append(events, &meetingTime{time: num[1], start: false})
+	}
+
+	// 排序
+	// 按时间排序（如果时间相同，结束事件优先）
+	sort.Slice(events, func(i, j int) bool {
+		if events[i].time == events[j].time {
+			return !events[i].start
+		}
+		return events[i].time < events[j].time
+	})
+
+	// 计算会议室
+	var current int
+	var sumMeeting int
+	for _, event := range events {
+		if event.start {
+			current++
+			if current > sumMeeting {
+				sumMeeting = current
+			}
+		} else {
+			current--
+		}
+	}
+	return sumMeeting
+
 }
