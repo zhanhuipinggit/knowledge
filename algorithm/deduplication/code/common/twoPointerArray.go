@@ -117,6 +117,19 @@ func twoSum(nums []int, target int) []int {
 	return []int{-1, -1}
 }
 
+// 非有序
+func getTwoSumTarget(nums []int, target int) []int {
+	hashTable := make(map[int]int)
+	for i, num := range nums {
+		complement := target - num
+		if j, ok := hashTable[complement]; ok {
+			return []int{i, j}
+		}
+		hashTable[num] = i
+	}
+	return nil
+}
+
 // reverseString 反转数组
 func reverseString(s []rune) {
 	left, right := 0, len(s)-1
