@@ -157,7 +157,7 @@ func checkInclusion(s string, t string) bool {
 s 和 p 仅包含小写字母
 这个所谓的字母异位词，不就是排列吗，搞个高端的说法就能糊弄人了吗？相当于，输入一个串 S，一个串 T，找到 S 中所有 T 的排列，返回它们的起始索引。
 */
-
+// findAnagrams
 func findAnagrams(s string, t string) []int {
 	need, windows := make(map[byte]int), make(map[byte]int)
 	for i := range t {
@@ -192,4 +192,51 @@ func findAnagrams(s string, t string) []int {
 	}
 	return nil
 
+}
+
+/**
+3. 无重复字符的最长子串 | 力扣 | LeetCode |
+给定一个字符串 s ，请你找出其中不含有重复字符的 最长 子串 的长度。
+
+示例 1:
+
+输入: s = "abcabcbb"
+输出: 3
+解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+示例 2:
+
+输入: s = "bbbbb"
+输出: 1
+解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+示例 3:
+
+输入: s = "pwwkew"
+输出: 3
+解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+     请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+提示：
+
+0 <= s.length <= 5 * 104
+s 由英文字母、数字、符号和空格组成
+*/
+
+func lengthOFLongestSubstring(nums []int) int {
+	left, right := 0, 0
+	res := 0
+	windows := make(map[byte]int)
+	for right < len(nums) {
+		w := nums[right]
+		windows[byte(w)]++
+		for windows[byte(w)] > 1 {
+			p := nums[left]
+			left++
+			windows[byte(p)]--
+		}
+		// 更新长度
+		if res < (right - left) {
+			res = right - left
+		}
+	}
+
+	return res
 }
