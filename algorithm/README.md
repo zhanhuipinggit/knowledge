@@ -15,5 +15,5 @@
     - **[搜索](./search.md)**
     - **[分治](./divide_and_conquer.md)**
     - **[回溯](./backtracking.md)**
-    - **[动态规划](./dynamic_programming.md)**
+    - **[动态规划](dp/dynamic_programming.md)**
     - **[贪心](./greedy.md)**
