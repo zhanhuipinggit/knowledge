@@ -95,3 +95,33 @@ func insertSort(nums []int) {
 
 	}
 }
+
+// 计数排序
+func countingSort(nums []int) {
+	m := 0
+	for _, num := range nums {
+		if num > m {
+			m = num
+		}
+	}
+	// 技术
+	counter := make([]int, m+1)
+	for _, num := range nums {
+		counter[num]++
+	}
+
+	// 寻找下标
+	for i := 0; i < m; i++ {
+		counter[i+1] += counter[i]
+	}
+
+	n := len(nums)
+	res := make([]int, n)
+	for i := n - 1; i >= 0; i-- {
+		num := nums[i]
+		res[counter[num]-1] = num
+		counter[num]--
+	}
+	copy(nums, res)
+
+}
