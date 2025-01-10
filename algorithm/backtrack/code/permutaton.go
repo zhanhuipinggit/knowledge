@@ -99,15 +99,122 @@ func permuteIII(nums []int, target int) [][]int {
 	return res
 }
 
+/*
+*
+根据国际象棋的规则，皇后可以攻击与同处一行、一列或一条斜线上的棋子。给定n个皇后和一个n*n大小的棋盘，寻找使得所有皇后之间无法相互攻击的摆放方案。
+*/
+func isSafe(broad [][]int, n, row, col int) bool {
+	// 检查当前列是否有皇后
+	for i := 0; i < row; i++ {
+		// 当前位置有，则不能放置
+		if broad[i][col] == 1 {
+			return false
+		}
+	}
+
+	// 检查左上对角线是否能放置
+	for i, j := row, col; j >= 0 && i >= 0; j, i = j-1, i-1 {
+		if broad[i][j] == 1 {
+			return false
+		}
+	}
+
+	// 检查右上角是否能放置
+	for i, j := row, col; j < n && i > 0; i, j = i-1, j+1 {
+		if broad[i][j] == 1 {
+			return false
+		}
+	}
+
+	return true
+
+}
+
+// n皇后问题
+// isSafe 检查当前位置 (row, col) 是否可以放置皇后
+//func isSafe(board [][]int, row, col, n int) bool {
+//	// 检查当前行是否有皇后
+//	for i := 0; i < col; i++ {
+//		if board[row][i] == 1 {
+//			return false
+//		}
+//	}
+//
+//	// 检查左上对角线是否有皇后
+//	for i, j := row, col; i >= 0 && j >= 0; i, j = i-1, j-1 {
+//		if board[i][j] == 1 {
+//			return false
+//		}
+//	}
+//
+//	// 检查左下对角线是否有皇后
+//	for i, j := row, col; i < n && j >= 0; i, j = i+1, j-1 {
+//		if board[i][j] == 1 {
+//			return false
+//		}
+//	}
+//
+//	return true
+//}
+
+func nQueues(res *[][]string, col, n int, broad [][]int) {
+	if col == n {
+		subStrArr := make([]string, n)
+		for i := 0; i < n; i++ {
+			subStr := ""
+			for j := 0; j < n; j++ {
+				if broad[i][j] == 1 {
+					subStr = subStr + "Q"
+				} else {
+					subStr = subStr + "."
+				}
+			}
+			subStrArr[i] = subStr
+		}
+		*res = append(*res, subStrArr)
+		return
+	}
+
+	for i := 0; i < n; i++ {
+		if isSafe(broad, n, i, col) {
+			broad[i][col] = 1
+			nQueues(res, col+1, n, broad)
+			// 回溯，移除皇后
+			broad[i][col] = 0
+		}
+	}
+
+}
+
+// solveNQueens 解决 N 皇后问题
+func solveNQueens(n int) [][]string {
+	var result [][]string
+	board := make([][]int, n)
+	for i := range board {
+		board[i] = make([]int, n)
+	}
+
+	nQueues(&result, 0, n, board)
+	return result
+}
+
 func main() {
-	nums := []int{1, 2, 3}
+	//nums := []int{1, 2, 3}
 	//permutations := permute(nums)
 	//for _, perm := range permutations {
 	//	fmt.Println(perm)
 	//}
 
-	permutationsII := permuteIII(nums, 3)
-	for _, perm := range permutationsII {
-		fmt.Println(perm)
+	//permutationsII := permuteIII(nums, 3)
+	//for _, perm := range permutationsII {
+	//	fmt.Println(perm)
+	//}
+
+	n := 4
+	result := solveNQueens(n)
+	for _, solution := range result {
+		for _, row := range solution {
+			fmt.Println(row)
+		}
 	}
 }
