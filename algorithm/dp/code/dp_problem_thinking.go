@@ -45,6 +45,31 @@ func minPathSumDp(grid [][]int) int {
 
 }
 
-/**
+/*
+*
 空间优化
 */
+func minPathSumDp1(grid [][]int) int {
+	n, m := len(grid), len(grid[0])
+	dp := make([]int, m)
+	dp[0] = grid[0][0]
+	for j := 1; j < m; j++ {
+		dp[j] = dp[j] + grid[0][j]
+	}
+
+	mins := func(i, j int) int {
+		if i > j {
+			return j
+		}
+		return i
+	}
+
+	for i := 1; i < n; i++ {
+		dp[0] = dp[0] + grid[i][0]
+		for j := 1; j < m; j++ {
+			dp[j] = mins(dp[j-1], dp[j]) + grid[i][j]
+		}
+	}
+	return dp[m-1]
+
+}
