@@ -104,9 +104,16 @@ func permuteIII(nums []int, target int) [][]int {
 根据国际象棋的规则，皇后可以攻击与同处一行、一列或一条斜线上的棋子。给定n个皇后和一个n*n大小的棋盘，寻找使得所有皇后之间无法相互攻击的摆放方案。
 */
 func isSafe(broad [][]int, n, row, col int) bool {
+	//// 检查当前列是否有皇后
+	//for i := 0; i < col; i++ {
+	//	// 当前位置有，则不能放置
+	//	if broad[row][i] == 1 {
+	//		return false
+	//	}
+	//}
+
 	// 检查当前列是否有皇后
-	for i := 0; i < row; i++ {
-		// 当前位置有，则不能放置
+	for i := 0; i < row; i++ { // 修正：遍历当前列的所有行
 		if broad[i][col] == 1 {
 			return false
 		}
@@ -120,7 +127,7 @@ func isSafe(broad [][]int, n, row, col int) bool {
 	}
 
 	// 检查右上角是否能放置
-	for i, j := row, col; j < n && i > 0; i, j = i-1, j+1 {
+	for i, j := row, col; j < n && i >= 0; i, j = i-1, j+1 {
 		if broad[i][j] == 1 {
 			return false
 		}
@@ -157,8 +164,8 @@ func isSafe(broad [][]int, n, row, col int) bool {
 //	return true
 //}
 
-func nQueues(res *[][]string, col, n int, broad [][]int) {
-	if col == n {
+func nQueues(res *[][]string, row, n int, broad [][]int) {
+	if row == n {
 		subStrArr := make([]string, n)
 		for i := 0; i < n; i++ {
 			subStr := ""
@@ -175,12 +182,21 @@ func nQueues(res *[][]string, col, n int, broad [][]int) {
 		return
 	}
 
-	for i := 0; i < n; i++ {
-		if isSafe(broad, n, i, col) {
-			broad[i][col] = 1
-			nQueues(res, col+1, n, broad)
+	//for i := 0; i < n; i++ {
+	//	if isSafe(broad, n, i, col) {
+	//		broad[i][col] = 1
+	//		nQueues(res, col+1, n, broad)
+	//		// 回溯，移除皇后
+	//		broad[i][col] = 0
+	//	}
+	//}
+
+	for j := 0; j < n; j++ {
+		if isSafe(broad, n, row, j) {
+			broad[row][j] = 1
+			nQueues(res, row+1, n, broad)
 			// 回溯，移除皇后
-			broad[i][col] = 0
+			broad[row][j] = 0
 		}
 	}
 
@@ -212,9 +228,11 @@ func main() {
 
 	n := 4
 	result := solveNQueens(n)
+	//fmt.Println(result)
 	for _, solution := range result {
 		for _, row := range solution {
 			fmt.Println(row)
 		}
+		fmt.Println("---------------------")
 	}
 }
