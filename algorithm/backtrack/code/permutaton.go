@@ -214,6 +214,70 @@ func solveNQueens(n int) [][]string {
 	return result
 }
 
+/**
+编辑距离问题 或 Levenshtein距离问题，用于计算将字符串
+string1
+string1 转换为
+string2
+string2 所需的最少操作次数。可以使用以下三种操作：
+
+插入一个字符。
+dp[i][j] = dp[i][j-1]+1
+删除一个字符。
+dp[i][j] = dp[i-1][j]+1
+替换一个字符。
+dp[i][j] = dp[i-1][j-1]
+
+
+dp[i][j] = min(dp[i][j-1]+1,dp[i-1][j]+1,dp[i-1][j-1])
+
+*/
+
+func minPathSum(s1 string, s2 string) int {
+	l1 := len(s1)
+	l2 := len(s2)
+	dp := make([][]int, l1+1)
+	for i := range dp {
+		dp[i] = make([]int, l2+1)
+	}
+	// 操作数初始化
+	for i := 1; i < l1; i++ {
+		dp[i][0] = i
+	}
+
+	for j := 1; j < l2; j++ {
+		dp[0][j] = j
+	}
+
+	min := func(a, b, c int) int {
+		if a < b {
+			if a < c {
+				return a
+			}
+		} else {
+			if b < c {
+				return b
+			}
+		}
+		return c
+	}
+
+	for i := 1; i < l1; i++ {
+		for j := 1; j < l2; j++ {
+			if s1[i] == s2[j] {
+				dp[i][j] = dp[i-1][j-1]
+			} else {
+				dp[i][j] = min(
+					dp[i][j-1]+1,
+					dp[i-1][j]+1,
+					dp[i-1][j-1],
+				)
+			}
+		}
+	}
+	return dp[l1][l2]
+}
+
 func main() {
 	//nums := []int{1, 2, 3}
 	//permutations := permute(nums)
