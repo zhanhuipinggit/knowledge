@@ -36,9 +36,40 @@ func twoSum(nums []int, target int) []int {
 	return nil
 }
 
+func threeSum(nums []int) [][]int {
+
+	var res [][]int
+	backtrack(nums, &res, []int{}, 0)
+
+	return res
+
+}
+
+func backtrack(nums []int, res *[][]int, path []int, start int) {
+	if len(path) == 3 {
+		if path[0]+path[1]+path[2] == 0 {
+			temp := make([]int, 3)
+			copy(temp, path)
+			*res = append(*res, temp)
+		}
+		return
+	}
+
+	for i := start; i < len(nums)-1; i++ {
+		path = append(path, nums[i])
+		backtrack(nums, res, path, i+1)
+		path = path[:len(path)-1]
+	}
+}
+
 func main() {
 	nums := []int{3, 2, 4}
 	target := 6
 	res := twoSum(nums, target)
-	fmt.Println(res)
+	fmt.Println("两位数相加：", res)
+
+	numsThree := []int{-1, 0, 1, 2, -1, -4}
+	resT := threeSum(numsThree)
+	fmt.Println("三位数相加：", resT)
+
 }
