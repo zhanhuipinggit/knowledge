@@ -210,6 +210,201 @@ func threeSumII(nums []int) [][]int {
 	return result
 }
 
+/**
+给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+
+子数组
+是数组中的一个连续部分。
+
+
+
+示例 1：
+
+输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+输出：6
+解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
+示例 2：
+
+输入：nums = [1]
+输出：1
+示例 3：
+
+输入：nums = [5,4,-1,7,8]
+输出：23
+分界：大于0小于0
+大于0+任何数，都大于本身
+小于0+任何数，都小于本身
+*/
+
+func maxSubArray(nums []int) int {
+
+	// 辅助函数，用于求两个整数中的较大值
+	maxSum := nums[0]
+	currentSum := nums[0]
+	for i := 1; i < len(nums); i++ {
+		currentSum = maxs(nums[i], currentSum+nums[i])
+		maxSum = maxs(currentSum, maxSum)
+	}
+	return maxSum
+}
+
+// 辅助函数，用于求两个整数中的较大值
+func maxs(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+/**
+整数数组 nums 按升序排列，数组中的值 互不相同 。
+
+在传递给函数之前，nums 在预先未知的某个下标 k（0 <= k < nums.length）上进行了 旋转，使数组变为 [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]（下标 从 0 开始 计数）。例如， [0,1,2,4,5,6,7] 在下标 3 处经旋转后可能变为 [4,5,6,7,0,1,2] 。
+
+给你 旋转后 的数组 nums 和一个整数 target ，如果 nums 中存在这个目标值 target ，则返回它的下标，否则返回 -1 。
+
+你必须设计一个时间复杂度为 O(log n) 的算法解决此问题。
+
+
+
+示例 1：
+
+输入：nums = [4,5,6,7,0,1,2], target = 0
+输出：4
+示例 2：
+
+输入：nums = [4,5,6,7,0,1,2], target = 3
+输出：-1
+示例 3：
+
+输入：nums = [1], target = 0
+输出：-1
+分析：主要核心是要知道：
+中间点：mid = left + (right-left)/2
+left := 0
+right := len(nums)-1
+如果中间点 大于 left点，则证明左侧是有序的
+如果中间点小于left点，说明右边是有序的
+再有序的空间里面查找target的值，则能达到log(n)
+*/
+
+func search(nums []int, target int) int {
+	left, right := 0, len(nums)-1
+	for left <= right {
+		mid := left + (right-left)/2
+		if nums[mid] == target {
+			return mid
+		}
+		// 右侧有序
+		if nums[mid] < nums[right] {
+			if nums[mid] < target && nums[right] >= target {
+				left = mid + 1
+			} else {
+				right = mid - 1
+			}
+		} else {
+			if nums[mid] > target && nums[left] <= target {
+				right = mid - 1
+			} else {
+				left = mid + 1
+			}
+		}
+	}
+	return -1
+
+}
+
+/*
+*
+给你一个链表的头节点 head ，旋转链表，将链表每个节点向右移动 k 个位置。
+*/
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+// 根据数组构建链表
+func buildLinkedList(arr []int) *ListNode {
+	if len(arr) == 0 {
+		return nil
+	}
+
+	// 初始化头节点
+	head := &ListNode{Val: arr[0]}
+	current := head
+
+	// 遍历数组并构建链表
+	for i := 1; i < len(arr); i++ {
+		current.Next = &ListNode{Val: arr[i]}
+		current = current.Next
+	}
+
+	return head
+}
+
+func rotateRight(head *ListNode, k int) *ListNode {
+	if head == nil || head.Next == nil || k == 0 {
+		return head
+	}
+
+	// 链表形成环
+	p := head
+	length := 1
+	for p.Next != nil {
+		length++
+		p = p.Next
+	}
+	p.Next = head
+
+	// 寻找头节点
+	// 头节点是倒数第几个节点
+	// 比如k== 2 那么头节点，就是倒数第二个node
+	start := k % length
+	if start == 0 {
+		return head
+	}
+	newTail := head
+	for i := 1; i < length-start; i++ {
+		newTail = newTail.Next
+	}
+	newHead := newTail.Next
+	newTail.Next = nil
+	return newHead
+	//
+	//for i := 0; i < k; i++ {
+	//
+	//}
+
+}
+
+/*
+*
+给你单链表的头指针 head 和两个整数 left 和 right ，其中 left <= right 。请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表 。
+reverseBetween
+*/
+func reverseBetween(head *ListNode, left int, right int) *ListNode {
+	// 将链表分成三个链表
+	dummy := &ListNode{Next: head}
+	pre := dummy
+	for i := 1; i < left; i++ {
+		pre = pre.Next
+	}
+
+	// 反转链表
+	// 开始反转
+	curr := pre.Next
+	var next *ListNode
+	for i := 0; i < right-left; i++ {
+		next = curr.Next
+		curr.Next = next.Next
+		next.Next = pre.Next
+		pre.Next = next
+	}
+
+	return dummy.Next
+
+}
+
 func main() {
 	nums := []int{3, 2, 4}
 
@@ -220,5 +415,22 @@ func main() {
 	numsThree := []int{-1, 0, 1, 2, -1, -4}
 	resT := threeSumIII(numsThree)
 	fmt.Println("三位数相加：", resT)
+
+	// 最大子串
+	numsMaxSub := []int{-2, 1, -3, 4, -1, 2, 1, -5, 4}
+	resM := maxSubArray(numsMaxSub)
+	fmt.Println("最长子串：", resM)
+
+	// 最大子串
+	numsSearch := []int{5, 1, 3}
+	resS := search(numsSearch, 3)
+	fmt.Println("查找旋转排序数组：", resS)
+
+	// 构建链表
+	head := buildLinkedList([]int{1, 2, 3, 4, 5})
+	//heads := rotateRight(head, 2)
+	//fmt.Println("旋转链表，将链表每个节点向右移动 k 个位置", heads.Val)
+
+	reverseBetween(head, 2, 4)
 
 }
