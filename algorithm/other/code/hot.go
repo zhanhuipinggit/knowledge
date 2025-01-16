@@ -405,6 +405,28 @@ func reverseBetween(head *ListNode, left int, right int) *ListNode {
 
 }
 
+// 链表两种反转
+func listReverseI(head *ListNode) *ListNode {
+	var prev *ListNode
+	current := head
+	for current != nil {
+		temp := current.Next // 保留下一个节点
+		current.Next = prev  // 断节点路径，指向前节点
+		prev = current       // prev往前移动
+		current = temp       // 当前节点后移动
+	}
+	return prev
+}
+
+// 打印链表
+func printList(head *ListNode) {
+	for head != nil {
+		fmt.Printf("%d -> ", head.Val)
+		head = head.Next
+	}
+	fmt.Println("nil")
+}
+
 func main() {
 	nums := []int{3, 2, 4}
 
@@ -430,7 +452,9 @@ func main() {
 	head := buildLinkedList([]int{1, 2, 3, 4, 5})
 	//heads := rotateRight(head, 2)
 	//fmt.Println("旋转链表，将链表每个节点向右移动 k 个位置", heads.Val)
-
-	reverseBetween(head, 2, 4)
+	//
+	//reverseBetween(head, 2, 4)
+	heads := listReverseI(head)
+	printList(heads)
 
 }
