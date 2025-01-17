@@ -427,6 +427,123 @@ func printList(head *ListNode) {
 	fmt.Println("nil")
 }
 
+/**
+24. 两两交换链表中的节点
+中等
+相关标签
+相关企业
+给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）
+*/
+
+func swapPairs(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	dummy := &ListNode{Next: head}
+	perv := dummy
+	for perv.Next != nil && perv.Next.Next != nil {
+		fist := perv.Next
+		second := fist.Next
+		nextPail := second.Next
+		//交换
+		second.Next = fist
+		fist.Next = nextPail
+		perv.Next = second
+		perv = fist
+	}
+
+	return dummy.Next
+
+}
+
+/**
+给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
+
+如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。
+为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。
+如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。
+*/
+
+func detectCycle(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return nil
+	}
+
+	slow, fast := head, head
+	for fast.Next != nil && fast.Next.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+		if slow == fast {
+			break
+		}
+	}
+	if fast.Next == nil || fast.Next.Next == nil {
+		return nil
+	}
+
+	slow = head
+	for slow != fast {
+		slow = slow.Next
+		fast = fast.Next
+	}
+
+	return slow
+
+}
+
+/**
+给你链表的头节点 head ，每 k 个节点一组进行翻转，请你返回修改后的链表。
+
+k 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。
+
+你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
+1,2,3,4,5 k=2
+2,1,4,3,5
+
+1,2,3,4,5 k=3
+3,2,1,4,5
+
+*/
+
+func reverseKGroup(head *ListNode, k int) *ListNode {
+	if head == nil || k == 1 {
+		return head
+	}
+
+	// 计算链表长度
+	length := 0
+	temp := head
+	for temp != nil {
+		length++
+		temp = temp.Next
+	}
+
+	// 创建一个哑节点，方便操作
+	dummy := &ListNode{Next: head}
+	prevGroupEnd := dummy
+
+	for length >= k {
+		// 反转 k 个节点
+		prev := prevGroupEnd
+		curr := prev.Next
+		next := curr.Next
+		for i := 1; i < k; i++ {
+			curr.Next = next.Next
+			next.Next = prev.Next
+			prev.Next = next
+			next = curr.Next
+		}
+
+		// 移动 prevGroupEnd 到下一组的前一个位置
+		prevGroupEnd = curr
+		length -= k
+	}
+
+	return dummy.Next
+
+}
+
 func main() {
 	nums := []int{3, 2, 4}
 
@@ -456,5 +573,30 @@ func main() {
 	//reverseBetween(head, 2, 4)
 	heads := listReverseI(head)
 	printList(heads)
+
+	swapPairsL := buildLinkedList([]int{1, 2, 3, 4})
+	swap := swapPairs(swapPairsL)
+	printList(swap)
+
+	// 返回环节点
+	detectCycleL := &ListNode{}
+	d1 := &ListNode{}
+	d2 := &ListNode{}
+	d3 := &ListNode{}
+	detectCycleL.Next = d1
+	detectCycleL.Val = 3
+	d1.Next = d2
+	d1.Val = 2
+	d2.Next = d3
+	d2.Val = 0
+	d3.Next = d1
+	d3.Val = -4
+	//detectCycleL := buildLinkedList([]int{3, 2, 0, -4})
+	detectCycle(detectCycleL)
+	//printList(detect)
+
+	reverseKGroupL := buildLinkedList([]int{1, 2, 3, 4, 5})
+
+	reverseKGroup(reverseKGroupL, 2)
 
 }
