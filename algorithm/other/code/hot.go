@@ -544,7 +544,15 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 
 }
 
-func main() {
+func mainx() {
+
+	TestTr()
+	// 构建数结构
+	root := buildTreeFromArray([]int{3, 9, 20, -1, -1, 15, 7})
+
+	preorderTraversal(root)
+
+	return
 	nums := []int{3, 2, 4}
 
 	target := 6
