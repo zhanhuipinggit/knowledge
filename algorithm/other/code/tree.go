@@ -163,7 +163,7 @@ func helper(node *TreeNode, max, min *int) bool {
 
 百度百科中最近公共祖先的定义为：“对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
 */
-func main() {
+func mainc() {
 	TestTr()
 }
 
