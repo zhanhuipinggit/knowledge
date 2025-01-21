@@ -168,3 +168,81 @@ inDegree[course]++
   - 所以在图 graph 中，graph[bi] 会包含课程 ai，表示课程 bi 是课程 ai 的先修课程。
   - 同时，inDegree[ai]++ 表示课程 ai 被依赖的次数增加 1。
 
+### 3. 初始化队列，入度为 0 的课程可以直接学习
+```go
+// Step 2: Initialize the queue with all courses that have in-degree 0
+queue := []int{}
+for i := 0; i < numCourses; i++ {
+    if inDegree[i] == 0 {
+        queue = append(queue, i)
+    }
+}
+
+```
+
+- 初始化一个队列 queue，用于存储当前可以学习的课程（即那些入度为 0 的课程）。
+- 入度为 0 的课程表示没有任何课程依赖于它们，可以立即开始学习。
+
+### 4. 使用 Kahn 算法进行拓扑排序
+```go
+// Step 3: Perform Kahn's algorithm
+count := 0
+for len(queue) > 0 {
+    course := queue[0]
+    queue = queue[1:] // dequeue the course
+    count++
+
+    // Decrease the in-degree of each neighbor
+    for _, neighbor := range graph[course] {
+        inDegree[neighbor]--
+        if inDegree[neighbor] == 0 {
+            queue = append(queue, neighbor) // if in-degree becomes 0, add to queue
+        }
+    }
+}
+
+```
+
+- 使用队列 queue 进行拓扑排序，每次从队列中取出一个入度为 0 的课程，并将它的邻居（即它依赖的课程）的入度减 1。
+- 如果某个邻居的入度减为 0，表示它的所有先修课程都已完成，可以开始学习该课程，于是将其加入队列。
+- 通过 count++ 记录已经可以学习的课程的数量。
+
+### 5. 判断是否能够学习所有课程
+```go
+
+// Step 4: If we have visited all courses, return true
+return count == numCourses
+
+```
+
+- 如果 count 等于课程总数 numCourses，说明所有课程都能按照某个顺序完成，返回 true。
+- 如果 count 小于 numCourses，说明有些课程存在环路，导致无法完成，返回 false。
+
+### 例子
+
+假设我们有 4 门课程，numCourses = 4，并且给定的先修课程关系如下：
+
+```go
+
+prerequisites := [][]int{
+    {1, 0},  // 课程 1 依赖课程 0
+    {2, 1},  // 课程 2 依赖课程 1
+    {3, 2},  // 课程 3 依赖课程 2
+}
+
+```
+
+**1、构建图和入度数组：**
+
+- 图：`graph = [[1], [2], [3], []]`（课程 0 依赖课程 1，课程 1 依赖课程 2，课程 2 依赖课程 3）
+- 入度数组：`inDegree = [0, 1, 1, 1]`（课程 0 没有任何课程依赖于它，其他课程的入度为 1）
+
+**2、初始化队列**
+- 入度为 0 的课程只有课程 0，所以 `queue = [0]`。
+
+**3、使用 Kahn 算法进行拓扑排序：**
+
+- 从队列中取出课程 0，更新它的邻居（课程 1），将课程 1 的入度减 1，入度变为 0，将课程 1 加入队列。
+- 取出课程 1，更新它的邻居（课程 2），将课程 2 的入度减 1，入度变为 0，将课程 2 加入队列。
+- 取出课程 2，更新它的邻居（课程 3），将课程 3 的入度减 1，入度变为 0，将课程 3 加入队列。
+- 所有课程都可以完成，所以返回 true。
