@@ -46,6 +46,6 @@ func max(i, j int) int {
 	return j
 }
 
-func main() {
+func maind() {
 	longestCommonSubsequence("hafcdqbgncrcbihkd", "pmjghexybyrgzczy")
 }

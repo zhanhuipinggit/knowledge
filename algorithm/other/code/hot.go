@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"math"
+	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -544,13 +546,156 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 
 }
 
-func mainx() {
+/*
+*
 
-	TestTr()
-	// 构建数结构
-	root := buildTreeFromArray([]int{3, 9, 20, -1, -1, 15, 7})
+322. 零钱兑换
+中等
+相关标签
+相关企业
+给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。
 
-	preorderTraversal(root)
+计算并返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回 -1 。
+
+你可以认为每种硬币的数量是无限的。
+状态转移方程：d[n][m] = min(d[n-1][m], d[n-1][m+coins[
+*/
+func coinChange(coins []int, amount int) int {
+	dp := make([]int, amount+1)
+	dp[0] = 0
+	for i := 0; i < amount; i++ {
+		dp[i] = math.MaxInt32
+	}
+
+	for i := 0; i <= amount; i++ {
+		for coin := range coins {
+			if i >= coin && dp[i-coin] != math.MaxInt32 {
+				dp[i] = min(dp[i], dp[i-coin]+1)
+			}
+		}
+	}
+	if dp[amount] == math.MaxInt32 {
+		return -1
+	}
+
+	return dp[amount]
+
+}
+
+func min(i, j int) int {
+	if i > j {
+		return j
+	}
+	return i
+}
+
+/*
+*
+200. 岛屿数量
+中等
+相关标签
+相关企业
+给你一个由 '1'（陆地）和 '0'（水）组成的的二维网格，请你计算网格中岛屿的数量。
+
+岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。
+
+此外，你可以假设该网格的四条边均被水包围。
+*/
+
+func isLands(grid [][]byte, row, col int) {
+
+}
+
+func numIslands(grid [][]byte) int {
+
+	for i := 0; i < len(grid); i++ {
+		for j := 0; j < len(grid[0]); j++ {
+			// 判断是否是岛屿
+		}
+	}
+	return 0
+}
+
+/**
+207. 课程表
+中等
+相关标签
+相关企业
+提示
+你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。
+
+在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程 ai 则 必须 先学习课程  bi 。
+
+例如，先修课程对 [0, 1] 表示：想要学习课程 0 ，你需要先完成课程 1 。
+请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。
+
+
+
+示例 1：
+
+输入：numCourses = 2, prerequisites = [[1,0]]
+输出：true
+解释：总共有 2 门课程。学习课程 1 之前，你需要完成课程 0 。这是可能的。
+示例 2：
+
+输入：numCourses = 2, prerequisites = [[1,0],[0,1]]
+输出：false
+解释：总共有 2 门课程。学习课程 1 之前，你需要先完成​课程 0 ；并且学习课程 0 之前，你还应先完成课程 1 。这是不可能的。
+*/
+
+func canFinish(numCourses int, prerequisites [][]int) bool {
+	// Step 1: Create the graph and the in-degree array
+	graph := make([][]int, numCourses)  // adjacency list
+	inDegree := make([]int, numCourses) // in-degree array
+
+	// Build the graph and compute in-degrees
+	for _, pre := range prerequisites {
+		course, prerequisite := pre[0], pre[1]
+		graph[prerequisite] = append(graph[prerequisite], course)
+		inDegree[course]++
+	}
+
+	// Step 2: Initialize the queue with all courses that have in-degree 0
+	queue := []int{}
+	for i := 0; i < numCourses; i++ {
+		if inDegree[i] == 0 {
+			queue = append(queue, i)
+		}
+	}
+
+	// Step 3: Perform Kahn's algorithm
+	count := 0
+	for len(queue) > 0 {
+		course := queue[0]
+		queue = queue[1:] // dequeue the course
+		count++
+
+		// Decrease the in-degree of each neighbor
+		for _, neighbor := range graph[course] {
+			inDegree[neighbor]--
+			if inDegree[neighbor] == 0 {
+				queue = append(queue, neighbor) // if in-degree becomes 0, add to queue
+			}
+		}
+	}
+
+	// Step 4: If we have visited all courses, return true
+	return count == numCourses
+}
+
+func main() {
+	numCourses := 2
+	prerequisites := [][]int{{1, 0}, {0, 1}}
+
+	canFinish(numCourses, prerequisites)
+	os.Exit(-1)
+	return
+
+	//TestTr()
+	//// 构建数结构
+	//root := buildTreeFromArray([]int{3, 9, 20, -1, -1, 15, 7})
+	//
+	//preorderTraversal(root)
 
 	return
 	nums := []int{3, 2, 4}
