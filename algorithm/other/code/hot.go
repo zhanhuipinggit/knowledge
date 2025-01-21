@@ -644,50 +644,42 @@ func numIslands(grid [][]byte) int {
 */
 
 func canFinish(numCourses int, prerequisites [][]int) bool {
-	// Step 1: Create the graph and the in-degree array
-	graph := make([][]int, numCourses)  // adjacency list
-	inDegree := make([]int, numCourses) // in-degree array
-
-	// Build the graph and compute in-degrees
+	graph := make([][]int, numCourses)
+	inDegree := make([]int, numCourses)
 	for _, pre := range prerequisites {
 		course, prerequisite := pre[0], pre[1]
 		graph[prerequisite] = append(graph[prerequisite], course)
 		inDegree[course]++
 	}
 
-	// Step 2: Initialize the queue with all courses that have in-degree 0
 	queue := []int{}
 	for i := 0; i < numCourses; i++ {
 		if inDegree[i] == 0 {
 			queue = append(queue, i)
 		}
 	}
-
-	// Step 3: Perform Kahn's algorithm
-	count := 0
+	var count int
 	for len(queue) > 0 {
 		course := queue[0]
-		queue = queue[1:] // dequeue the course
+		queue = queue[1:]
 		count++
-
-		// Decrease the in-degree of each neighbor
 		for _, neighbor := range graph[course] {
 			inDegree[neighbor]--
 			if inDegree[neighbor] == 0 {
-				queue = append(queue, neighbor) // if in-degree becomes 0, add to queue
+				queue = append(queue, neighbor)
 			}
 		}
 	}
-
-	// Step 4: If we have visited all courses, return true
 	return count == numCourses
+
 }
 
 func main() {
 	numCourses := 2
 	prerequisites := [][]int{{1, 0}, {0, 1}}
 
-	canFinish(numCourses, prerequisites)
+	isCan := canFinish(numCourses, prerequisites)
+	fmt.Println(isCan)
 	os.Exit(-1)
 	return
 
