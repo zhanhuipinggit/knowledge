@@ -674,7 +674,105 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 
 }
 
+/*
+*
+51. N 皇后
+困难
+相关标签
+相关企业
+按照国际象棋的规则，皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子。
+
+n 皇后问题 研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
+
+给你一个整数 n ，返回所有不同的 n 皇后问题 的解决方案。
+
+每一种解法包含一个不同的 n 皇后问题 的棋子放置方案，该方案中 'Q' 和 '.' 分别代表了皇后和空位。
+*/
+func solveNQueens(n int) [][]string {
+	// 判断是否符合规格
+	var isSafe func([][]int, int, int) bool
+	isSafe = func(board [][]int, row, col int) bool {
+		// 正上方检测
+		for i := row - 1; i >= 0; i-- {
+			if board[i][col] == 1 {
+				return false
+			}
+		}
+
+		// 左上方
+		for i, j := row, col; i >= 0 && j >= 0; i, j = i-1, j-1 {
+			if board[i][j] == 1 {
+				return false
+			}
+		}
+
+		// 右上方
+		for i, j := row, col; i >= 0 && j < n; i, j = i-1, j+1 {
+			if board[i][j] == 1 {
+				return false
+			}
+		}
+		return true
+	}
+	var backtrack func(*[][]string, int, [][]int)
+	backtrack = func(res *[][]string, row int, broad [][]int) {
+		if row == n {
+			subStrArr := make([]string, n)
+			for i := 0; i < n; i++ {
+				subStr := ""
+				for j := 0; j < n; j++ {
+					if broad[i][j] == 1 {
+						subStr = subStr + "Q"
+					} else {
+						subStr = subStr + "."
+					}
+				}
+				subStrArr[i] = subStr
+			}
+			*res = append(*res, subStrArr)
+			return
+		}
+
+		for j := 0; j < n; j++ {
+			if isSafe(broad, row, j) {
+				broad[row][j] = 1
+				backtrack(res, row+1, broad)
+				// 回溯，移除皇后
+				broad[row][j] = 0
+			}
+		}
+	}
+
+	var res [][]string
+	board := make([][]int, n)
+	for i := range board {
+		board[i] = make([]int, n)
+	}
+	backtrack(&res, 0, board)
+
+	return res
+
+}
+
+/**
+79. 单词搜索
+给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。如果 word 存在于网格中，返回 true ；否则，返回 false 。
+
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+*/
+
 func main() {
+
+	n := 4
+	result := solveNQueens(n)
+	//fmt.Println(result)
+	for _, solution := range result {
+		for _, row := range solution {
+			fmt.Println(row)
+		}
+		fmt.Println("---------------------")
+	}
+	return
 	numCourses := 2
 	prerequisites := [][]int{{1, 0}, {0, 1}}
 
