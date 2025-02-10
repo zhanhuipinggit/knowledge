@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"sort"
 )
 
@@ -371,7 +372,348 @@ func productExceptSelf(nums []int) []int {
 
 }
 
+/*
+*
+73. 矩阵置零
+给定一个 m x n 的矩阵，如果一个元素为 0 ，则将其所在行和列的所有元素都设为 0 。请使用 原地 算法。
+*/
+func setZeroes(matrix [][]int) {
+	m, n := len(matrix), len(matrix[0])
+	firstRowZero := false
+	firstColZero := false
+	for i := 0; i < m; i++ {
+		if matrix[i][0] == 0 {
+			firstRowZero = true
+		}
+	}
+
+	for i := 0; i < n; i++ {
+		if matrix[0][i] == 0 {
+			firstColZero = true
+		}
+	}
+
+	// 用首行和首列来标记是否为0
+	for i := 1; i < m; i++ {
+		for j := 1; j < n; j++ {
+			if matrix[i][j] == 0 {
+				matrix[0][j] = 0
+				matrix[i][0] = 0
+			}
+		}
+	}
+
+	// 根据首行首列来标记
+	for i := 1; i < m; i++ {
+		for j := 1; j < n; j++ {
+			if matrix[0][j] == 0 || matrix[i][0] == 0 {
+				matrix[i][j] = 0
+			}
+		}
+	}
+
+	// 标记首行首列
+	if firstColZero {
+		for i := 0; i < n; i++ {
+			matrix[0][i] = 0
+		}
+	}
+
+	// 标记首行首列
+	if firstRowZero {
+		for i := 0; i < n; i++ {
+			matrix[i][0] = 0
+		}
+	}
+
+}
+
+/*
+*
+54. 螺旋矩阵
+中等
+相关标签
+相关企业
+提示
+给你一个 m 行 n 列的矩阵 matrix ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素。
+*/
+func spiralOrder(matrix [][]int) []int {
+	res := []int{}
+
+	// 边界初始化
+	top, bottom, left, right := 0, len(matrix)-1, 0, len(matrix[0])-1
+
+	for top <= bottom && left <= right {
+		// 从左到右遍历上边界
+		for i := left; i <= right; i++ {
+			res = append(res, matrix[top][i])
+		}
+		top++ // 完成上边界遍历后，top 边界下移
+
+		// 从上到下遍历右边界
+		for i := top; i <= bottom; i++ {
+			res = append(res, matrix[i][right])
+		}
+		right-- // 完成右边界遍历后，right 边界左移
+
+		if top <= bottom {
+			// 从右到左遍历下边界
+			for i := right; i >= left; i-- {
+				res = append(res, matrix[bottom][i])
+			}
+			bottom-- // 完成下边界遍历后，bottom 边界上移
+		}
+
+		if left <= right {
+			// 从下到上遍历左边界
+			for i := bottom; i >= top; i-- {
+				res = append(res, matrix[i][left])
+			}
+			left++ // 完成左边界遍历后，left 边界右移
+		}
+	}
+
+	return res
+}
+
+func spiralOrderII(matrix [][]int) []int {
+	left, right, top, bottom := 0, len(matrix[0])-1, 0, len(matrix)-1
+	res := []int{}
+	for left <= right && top <= bottom {
+		for i := left; i <= right; i++ {
+			res = append(res, matrix[top][i])
+		}
+		top++
+		for i := top; i <= bottom; i++ {
+			res = append(res, matrix[i][right])
+		}
+		right--
+		if top <= bottom {
+			for i := right; i >= left; i-- {
+				res = append(res, matrix[bottom][i])
+			}
+			bottom--
+		}
+
+		if left <= right {
+			for i := bottom; i >= top; i-- {
+				res = append(res, matrix[i][left])
+			}
+			left++
+		}
+
+	}
+	return res
+}
+
+/*
+*
+给定一个 n × n 的二维矩阵 matrix 表示一个图像。请你将图像顺时针旋转 90 度。
+
+你必须在 原地 旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要 使用另一个矩阵来旋转图像。
+*/
+func rotateI(matrix [][]int) {
+	n := len(matrix)
+	// 行变成列
+	for i := 0; i < n; i++ {
+		for j := i + 1; j < n; j++ {
+			matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+		}
+	}
+	// 水平翻转
+	for i := 0; i < n; i++ {
+		left, right := 0, n-1
+		for left < right {
+			matrix[i][left], matrix[i][right] = matrix[i][right], matrix[i][left]
+			left++
+			right--
+		}
+	}
+
+}
+
+/**
+240. 搜索二维矩阵 II
+中等
+相关标签
+相关企业
+编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target 。该矩阵具有以下特性：
+
+每行的元素从左到右升序排列。
+每列的元素从上到下升序排列
+
+需要注意解法，必须从右上角开始往下
+*/
+
+func searchMatrix(matrix [][]int, target int) bool {
+	m, n := len(matrix), len(matrix[0])
+	if m == 0 || n == 0 {
+		return false
+	}
+	row, col := 0, n-1
+	for row < m && col >= 0 {
+		if matrix[row][col] == target {
+			return true
+		} else if matrix[row][col] > target {
+			col--
+		} else {
+			row++
+		}
+	}
+	return false
+
+}
+
+type ListNode1 struct {
+	Val  int
+	Next *ListNode1
+}
+
+// isPalindrome 判断链表是否是回文链表
+func isPalindrome(head *ListNode1) bool {
+	if head == nil || head.Next == nil {
+		return true
+	}
+
+	// 1. 使用快慢指针找到链表中点
+	slow, fast := head, head
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	// 2. 反转后半部分链表
+	reverse := func(head *ListNode1) *ListNode1 {
+		var prev *ListNode1
+		curr := head
+		for curr != nil {
+			next := curr.Next
+			curr.Next = prev
+			prev = curr
+			curr = next
+		}
+		return prev
+	}
+
+	secondHalf := reverse(slow)
+	firstHalf := head
+
+	// 3. 比较前半部分和后半部分
+	p1, p2 := firstHalf, secondHalf
+	for p2 != nil { // 只需比较后半部分
+		if p1.Val != p2.Val {
+			return false
+		}
+		p1 = p1.Next
+		p2 = p2.Next
+	}
+
+	return true
+}
+
+func TestIsPalindrome() {
+	head := &ListNode1{1, nil}
+	head1 := &ListNode1{2, nil}
+	head2 := &ListNode1{2, nil}
+	head3 := &ListNode1{1, nil}
+	head.Next = head1
+	head1.Next = head2
+	head2.Next = head3
+
+	isPalindrome(head)
+}
+
+/*
+*
+2. 两数相加
+中等
+相关标签
+相关企业
+给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+
+请你将两个数相加，并以相同形式返回一个表示和的链表。
+
+你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+*/
+func addTwoNumbers(l1 *ListNode1, l2 *ListNode1) *ListNode1 {
+	dummy := &ListNode1{}
+	curr := dummy
+	carry := 0
+	for l1 != nil || l2 != nil || carry != 0 {
+		val1, val2 := 0, 0
+		if l1 != nil {
+			l1 = l1.Next
+			val1 = l1.Val
+		}
+
+		if l2 != nil {
+			l2 = l2.Next
+			val2 = l2.Val
+		}
+		sum := val1 + val2 + carry
+		carry = sum / 10
+		node := &ListNode1{Val: sum % 10}
+		curr.Next = node
+		curr = curr.Next
+	}
+	return dummy.Next // 返回结果链表的实际头节点
+}
+
+func sortList(head *ListNode1) *ListNode1 {
+	if head == nil {
+		return head
+	}
+	countH := head
+	maxNum := math.MinInt32
+	for countH != nil {
+		if maxNum < countH.Val {
+			maxNum = countH.Val
+		}
+		countH = countH.Next
+	}
+
+	newSliceList := make([]int, maxNum+1)
+	curr := head
+	for curr != nil {
+		val := curr.Val
+		newSliceList[val]++
+		curr = curr.Next
+	}
+	dummy := &ListNode1{}
+	pre := dummy
+	for i, v := range newSliceList {
+		for v > 0 {
+			node := &ListNode1{Val: i}
+			pre.Next = node
+			pre = pre.Next
+			v--
+		}
+	}
+
+	return dummy.Next
+
+}
+
+func TestSortList() {
+	head := &ListNode1{4, nil}
+	head1 := &ListNode1{2, nil}
+	head2 := &ListNode1{1, nil}
+	head3 := &ListNode1{3, nil}
+	head.Next = head1
+	head1.Next = head2
+	head2.Next = head3
+
+	p := sortList(head)
+	for p != nil {
+		fmt.Println(p.Val)
+		p = p.Next
+	}
+}
+
 func main() {
+	TestSortList()
+	return
+	TestIsPalindrome()
 	nums := []int{100, 4, 200, 1, 3, 2}
 	i := longestConsecutive(nums)
 	fmt.Println(i)
@@ -383,5 +725,13 @@ func main() {
 	k := 3
 	res := maxSlidingWindow(sliding, k)
 	fmt.Println(res)
+
+	matrix := [][]int{
+		{1, 2, 3},
+		{4, 5, 6},
+		{7, 8, 9},
+	}
+	ress := spiralOrderII(matrix)
+	fmt.Println("spiralOrder", ress)
 
 }
