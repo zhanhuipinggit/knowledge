@@ -710,6 +710,84 @@ func TestSortList() {
 	}
 }
 
+func trapII(height []int) int {
+	if len(height) < 3 {
+		return 0
+	}
+
+	leftMax := make([]int, len(height))
+	leftMax[0] = height[0]
+	for i := 1; i < len(height); i++ {
+		leftMax[i] = max(height[i-1], height[i])
+	}
+
+	rightMax := make([]int, len(height))
+	rightMax[len(height)-1] = height[len(height)-1]
+	for i := len(height) - 2; i >= 0; i-- {
+		rightMax[i] = max(height[i], height[i+1])
+	}
+	res := 0
+	for i := 0; i < len(height); i++ {
+		res += min(leftMax[i], rightMax[i]) - height[i]
+	}
+	return res
+
+}
+
+func maxArea(height []int) int {
+	left, right := 0, len(height)-1
+	maxAreaS := 0
+	for left < right {
+		widthH := right - left
+		minH := 0
+		if height[left] < height[right] {
+			minH = height[left]
+			left++
+		} else {
+			minH = height[right]
+			right--
+		}
+
+		currArea := widthH * minH
+		if currArea > maxAreaS {
+			maxAreaS = currArea
+		}
+	}
+
+	return maxAreaS
+}
+
+func trapIII(height []int) int {
+	n := len(height)
+	if n < 3 {
+		return 0
+	}
+
+	left, right := 0, n-1
+	maxLeft, maxRight := height[left], height[right]
+	res := 0
+	for left <= right {
+		if height[left] <= height[right] {
+			if height[left] >= maxLeft {
+				maxLeft = height[left]
+			} else {
+				res += maxLeft - height[left]
+			}
+			left++
+		} else {
+			if height[right] >= maxRight {
+				maxRight = height[right]
+			} else {
+				res += maxRight - height[right]
+			}
+			right--
+		}
+	}
+
+	return res
+
+}
+
 func main() {
 	TestSortList()
 	return
