@@ -788,6 +788,35 @@ func trapIII(height []int) int {
 
 }
 
+// 单调栈
+func trapIIII(height []int) int {
+	n := len(height)
+	if n == 0 {
+		return 0
+	}
+
+	stack := []int{}
+	res := 0
+	for i := 0; i < n-1; i++ {
+		// 大于栈顶元素，说明可以储水
+		for len(stack) > 0 && height[i] > height[stack[len(stack)-1]] {
+			top := height[stack[len(stack)-1]]
+			stack = stack[:len(stack)-1]
+			if len(stack) == 0 {
+				break
+			}
+
+			width := i - stack[len(stack)-1] - 1
+			heightDiff := min(height[stack[len(stack)-1]], height[i]) - height[top] // 水的高度
+			res += heightDiff * width
+		}
+		stack = append(stack, i)
+	}
+
+	return res
+
+}
+
 func main() {
 	TestSortList()
 	return
