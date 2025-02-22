@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math"
 	"math/rand"
 )
@@ -62,7 +63,42 @@ func (lc *LeastConnections) GetConnServer() string {
 
 }
 
+func permute(nums []int) [][]int {
+	used := make([]bool, len(nums))
+	var backtrack func(*[][]int, []int)
+	backtrack = func(res *[][]int, path []int) {
+		if len(path) == len(nums) {
+			temp := make([]int, len(path))
+			copy(temp, path)
+			*res = append(*res, temp)
+			return
+		}
+
+		for i := 0; i < len(nums); i++ {
+			if used[i] {
+				continue
+			}
+			used[i] = true
+			path = append(path, nums[i])
+			backtrack(res, path)
+			path = path[:len(path)-1]
+			used[i] = false
+		}
+
+	}
+
+	res := [][]int{}
+	path := []int{}
+	backtrack(&res, path)
+	return res
+
+}
+
 func main() {
+	nums := []int{5, 4, 6, 2}
+	res := permute(nums)
+	fmt.Println(res)
+	return
 	lc := &LeastConnections{servers: []string{"1", "2"}, conns: make(map[string]int)}
 	lc.addConnCount("1")
 	lc.addConnCount("1")

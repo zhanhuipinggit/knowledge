@@ -1,9 +1,11 @@
 package main
 
 import (
+	"container/list"
 	"fmt"
 	"math"
 	"sort"
+	"sync"
 )
 
 /**
@@ -817,7 +819,245 @@ func trapIIII(height []int) int {
 
 }
 
+func orangesRotting(grid [][]int) int {
+	queue := [][]int{} // 存储腐烂橘子的坐标
+	freshOranges := 0
+	row, col := len(grid), len(grid[0])
+	for i := 0; i < row; i++ {
+		for j := 0; j < col; j++ {
+			if grid[i][j] == 2 {
+				queue = append(queue, []int{i, j})
+			} else if grid[i][j] == 1 {
+				freshOranges++
+			}
+		}
+	}
+
+	if freshOranges == 0 {
+		return 0
+	}
+
+	directions := [][]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+	minuteCount := 0
+	for len(queue) > 0 {
+		size := len(queue)
+		for i := 0; i < size; i++ {
+			x, y := queue[0][0], queue[0][1]
+			queue = queue[1:]
+			for _, dir := range directions {
+				nx, ny := x+dir[0], y+dir[1]
+				if nx > 0 && nx < row && ny > 0 && ny < col && grid[nx][ny] == 1 {
+					grid[nx][ny] = 2
+					freshOranges--
+					queue = append(queue, []int{nx, ny})
+				}
+			}
+		}
+		minuteCount++
+	}
+
+	return minuteCount
+
+}
+
+func generateParenthesis(n int) []string {
+	res := []string{}
+	left, right := 0, 0
+	var backtracking func(int, int, string)
+	backtracking = func(left int, right int, s string) {
+		if left == n && right == n {
+			res = append(res, s)
+			return
+		}
+		if left < n {
+			backtracking(left+1, right, s+"(")
+		}
+
+		if right < n {
+			backtracking(left, right+1, s+")")
+		}
+
+	}
+
+	backtracking(left, right, "")
+	return res
+}
+
+// 汉诺塔
+func move(src, tar *list.List) {
+	pan := src.Back()
+	tar.PushBack(pan.Value)
+	src.Remove(pan)
+}
+
+func hanota(i int, src, buf, tar *list.List) {
+	if i == 0 {
+		move(src, tar)
+		return
+	}
+
+	hanota(i-1, src, tar, buf)
+	move(src, tar)
+	hanota(i-1, buf, src, tar)
+}
+
+/**
+79. 单词搜索
+已解答
+中等
+相关标签
+相关企业
+给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。如果 word 存在于网格中，返回 true ；否则，返回 false 。
+
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+
+
+*/
+
+func exist(board [][]byte, words string) bool {
+	row, col := len(board), len(board[0])
+	var dfs func(int, int, int) bool
+	dfs = func(index int, r, c int) bool {
+		if len(words) == index {
+			return true
+		}
+
+		if r < 0 && r > row && c < 0 && c > col && board[r][c] != words[index] {
+			return false
+		}
+		temp := board[r][c]
+		board[r][c] = '#'
+		found := dfs(index+1, r+1, c) || dfs(index+1, r, c+1) || dfs(index+1, r-1, c) || dfs(index+1, r, c-1)
+		board[r][c] = temp
+		return found
+	}
+	for i := 0; i < row; i++ {
+		for j := 0; j < col; j++ {
+			if dfs(0, i, j) {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+/*
+*
+121. 买卖股票的最佳时机
+简单
+相关标签
+相关企业
+给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。
+
+你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。
+
+返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。
+
+示例 1：
+
+输入：[7,1,5,3,6,4]
+输出：5
+解释：在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
+
+	注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。
+
+示例 2：
+
+输入：prices = [7,6,4,3,1]
+输出：0
+解释：在这种情况下, 没有交易完成, 所以最大利润为 0。
+*/
+func maxProfit(prices []int) int {
+	n := len(prices)
+	maxProfitc := 0
+	for i := 0; i < n-1; i++ {
+		for j := i + 1; j < n; j++ {
+			if prices[j]-prices[i] > maxProfitc {
+				maxProfitc = prices[j] - prices[i]
+			}
+		}
+	}
+	return maxProfitc
+}
+
+func maxProfitI(prices []int) int {
+	minPrice := math.MaxInt
+	maxPrice := 0
+
+	for _, price := range prices {
+		if price < minPrice {
+			minPrice = price
+		}
+
+		currPrice := price - minPrice
+		if currPrice > maxPrice {
+			maxPrice = currPrice
+		}
+	}
+
+	return maxPrice
+}
+
+/**
+55. 跳跃游戏
+中等
+相关标签
+相关企业
+给你一个非负整数数组 nums ，你最初位于数组的 第一个下标 。数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+判断你是否能够到达最后一个下标，如果可以，返回 true ；否则，返回 false 。
+*/
+
+func canJump(nums []int) bool {
+	maxJump := 0
+	for i := 0; i < len(nums); i++ {
+		if i > maxJump {
+			return false
+		}
+
+		maxJump = max(maxJump, i+nums[i])
+		if maxJump >= len(nums)-1 {
+			return true
+		}
+	}
+
+	return false
+}
+
+// MemoryPool 分配内存池
+type MemoryPool struct {
+	pool *sync.Pool
+}
+
+const (
+	poolSize   = 100
+	bufferSize = 4096
+)
+
+func NewMemoryPool() *MemoryPool {
+	mp := &MemoryPool{
+		pool: &sync.Pool{
+			New: func() interface{} {
+				return make([]byte, bufferSize)
+			},
+		},
+	}
+
+	for i := 0; i < poolSize; i++ {
+		mp.pool.Put(make([]byte, bufferSize))
+	}
+
+	return mp
+
+}
+
 func main() {
+
+	prices := []int{7, 6, 4, 3, 1}
+	fmt.Println(maxProfit(prices))
+	return
+	generateParenthesis(3)
+	return
 	TestSortList()
 	return
 	TestIsPalindrome()
