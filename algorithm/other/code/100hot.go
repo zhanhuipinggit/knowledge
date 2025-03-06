@@ -1024,6 +1024,55 @@ func canJump(nums []int) bool {
 	return false
 }
 
+func canJumpII(nums []int) bool {
+	maxJump := 0
+	for i := 0; i < len(nums); i++ {
+		if i > maxJump {
+			return false
+		}
+		maxJump = max(maxJump, i+nums[i])
+		if maxJump > len(nums)-1 {
+			return true
+		}
+	}
+	return false
+}
+
+// 小偷
+func slave(nums []int) int {
+	count := make([]int, len(nums))
+	count[0] = nums[0]
+	count[1] = max(nums[0], nums[1])
+	for i := 2; i < len(nums); i++ {
+		count[i] = max(count[i-1], count[i-2]+nums[i])
+	}
+	return count[len(nums)-1]
+}
+
+// 括号组队
+func compute(n int) []string {
+	res := []string{}
+	var dfs func(int, int, string)
+	dfs = func(left, right int, path string) {
+		if left == n && right == n {
+			res = append(res, path)
+			return
+		}
+
+		// 先尝试添加左括号
+		if left < n {
+			dfs(left+1, right, path+"(")
+		}
+
+		// 再尝试添加右括号（必须保证右括号数量小于左括号）
+		if right < left {
+			dfs(left, right+1, path+")")
+		}
+	}
+	dfs(0, 0, "")
+	return res
+}
+
 // MemoryPool 分配内存池
 type MemoryPool struct {
 	pool *sync.Pool
@@ -1051,7 +1100,29 @@ func NewMemoryPool() *MemoryPool {
 
 }
 
+func deleteDuplicates(head *ListNode) *ListNode {
+	dummy1, dummy2 := &ListNode{Val: 101}, &ListNode{Val: 101}
+	p, q := dummy1, dummy2
+	for head != nil {
+		if (head.Next != nil && head.Next.Val == head.Val) || (head.Val == p.Val) {
+			p.Next = head
+			p = p.Next
+
+		} else {
+			q.Next = head
+			q = q.Next
+		}
+		head = head.Next
+		p.Next = nil
+		q.Next = nil
+	}
+
+	return dummy2.Next
+
+}
+
 func main() {
+	compute(2)
 
 	prices := []int{7, 6, 4, 3, 1}
 	fmt.Println(maxProfit(prices))
